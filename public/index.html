@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Destroy Any Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ MENU ============ -->
+<div id="menu" class="screen">
+  <div class="menu-bg" id="menuBg"></div>
+  <div class="panel">
+    <h1 class="logo"><span>DESTROY</span><span>ANY</span><span>WEBSITE</span></h1>
+    <p class="tag">Type an address, break everything.</p>
+
+    <form id="urlForm" class="row">
+      <input id="urlInput" type="text" placeholder="wikipedia.org" autocomplete="off" spellcheck="false">
+      <button type="submit" class="btn big">DESTROY!</button>
+    </form>
+    <div class="row quick">
+      <span>or try:</span>
+      <button class="btn small" data-url="demo">Demo page</button>
+      <button class="btn small" data-url="https://en.wikipedia.org/wiki/Special:Random">Wikipedia</button>
+      <button class="btn small" data-url="https://news.ycombinator.com">Hacker News</button>
+      <button class="btn small" data-url="https://example.com">example.com</button>
+    </div>
+
+    <div class="mp">
+      <h2>MULTIPLAYER <small>up to 6 players</small></h2>
+      <div class="row">
+        <label>Name <input id="nameInput" maxlength="16" placeholder="Player"></label>
+        <label>First to <select id="firstTo"><option>5</option><option selected>10</option><option>20</option><option>30</option></select> kills</label>
+      </div>
+      <div class="row">
+        <button class="btn" id="createRoom">Open a room</button>
+        <span class="muted">(uses the address above)</span>
+      </div>
+      <div class="row">
+        <input id="codeInput" maxlength="5" placeholder="CODE" class="code">
+        <button class="btn" id="joinRoom">Join room</button>
+      </div>
+      <div id="mpMsg" class="muted"></div>
+    </div>
+
+    <details class="controls" open>
+      <summary>CONTROLS</summary>
+      <table>
+        <tr><td><kbd>A</kbd><kbd>D</kbd> / <kbd>←</kbd><kbd>→</kbd></td><td>Run</td></tr>
+        <tr><td><kbd>Space</kbd> / <kbd>W</kbd></td><td>Jump · tap again to flip · hold to fly (unlimited jetpack)</td></tr>
+        <tr><td><kbd>S</kbd></td><td>Drop · hold to fall through platforms</td></tr>
+        <tr><td>Mouse</td><td>Aim · <b>Left click</b> shoot · <b>Right click</b> grenade</td></tr>
+        <tr><td><kbd>1</kbd>–<kbd>7</kbd> / Wheel</td><td>Switch weapon</td></tr>
+        <tr><td><kbd>Tab</kbd></td><td>Score</td></tr>
+        <tr><td><kbd>Esc</kbd></td><td>Pause</td></tr>
+      </table>
+    </details>
+    <p class="foot">Best on a laptop / desktop with a mouse.</p>
+  </div>
+</div>
+
+<!-- ============ GAME ============ -->
+<div id="game" class="screen hidden">
+  <div id="stage">
+    <iframe id="site" sandbox="allow-same-origin" referrerpolicy="no-referrer" scrolling="no"></iframe>
+    <canvas id="fx"></canvas>
+  </div>
+
+  <div id="hud">
+    <div class="hud-tl">
+      <div class="bar"><div class="label">HP</div><div class="meter"><i id="hpFill"></i></div><div id="hpTxt" class="val">100%</div></div>
+      <div id="killsTxt" class="kills"></div>
+    </div>
+    <div class="hud-tc">
+      <div class="label">WEBSITE DESTROYED</div>
+      <div class="meter wide"><i id="destFill"></i></div>
+      <div id="destTxt" class="val">0%</div>
+      <div id="roomTxt" class="roomtxt"></div>
+    </div>
+    <div id="feed" class="hud-tr"></div>
+    <div id="weapons" class="hud-bc"></div>
+    <div id="center" class="center-msg"></div>
+    <div id="hints" class="hints">
+      <div class="hints-title">CONTROLS</div>
+      <div><kbd>A</kbd><kbd>D</kbd><span>Run</span></div>
+      <div><kbd>SPACE</kbd><span>Jump · again: flip</span></div>
+      <div><kbd>SPACE</kbd><em>hold</em><span>Jetpack</span></div>
+      <div><kbd>S</kbd><span>Drop through</span></div>
+      <div><kbd>LMB</kbd><span>Shoot</span></div>
+      <div><kbd>RMB</kbd><span>Grenade</span></div>
+      <div><kbd>1-7</kbd><kbd>WHEEL</kbd><span>Weapon</span></div>
+      <div><kbd>TAB</kbd><span>Score</span><kbd>ESC</kbd><span>Pause</span></div>
+    </div>
+  </div>
+
+  <div id="score" class="overlay hidden"><div class="box"><h2 id="scoreTitle">SCORE</h2><table id="scoreTable"></table></div></div>
+
+  <div id="pause" class="overlay hidden">
+    <div class="box">
+      <h2>PAUSED</h2>
+      <button class="btn" id="resumeBtn">Resume</button>
+      <button class="btn" id="reloadBtn">Rebuild website</button>
+      <button class="btn" id="copyLinkBtn">Copy invite link</button>
+      <button class="btn" id="quitBtn">Main menu</button>
+    </div>
+  </div>
+
+  <div id="over" class="overlay hidden">
+    <div class="box"><h2 id="overTitle">GAME OVER</h2><table id="overTable"></table>
+      <button class="btn" id="againBtn">Play again</button>
+      <button class="btn" id="overQuit">Main menu</button>
+    </div>
+  </div>
+
+  <div id="loading" class="overlay">
+    <div class="box"><h2>LOADING WEBSITE</h2><p id="loadTxt">Fetching page…</p><div class="spinner"></div></div>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

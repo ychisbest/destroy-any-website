@@ -1,0 +1,15 @@
+{
+  "name": "destroy-any-website",
+  "version": "1.0.0",
+  "description": "A clone of the Destroy Any Website browser game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "destroy-any-website",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-09-01",
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": ["/proxy", "/ws"] },
+  "durable_objects": { "bindings": [{ "name": "HUB", "class_name": "Hub" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Hub"] }]
+}
